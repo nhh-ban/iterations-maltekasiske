@@ -39,6 +39,34 @@ transform_metadata_to_df <- function(metadata_list) {
   return(result_df)
 }
 
+to_iso8601 <- function(dt, offset) {
+  dt <- as_datetime(dt) + days(offset)
+  dt <- format(dt, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
+  return(dt)
+}
 
-
+transform_volumes <- function(json_response) {
+  # Extract the relevant information from the JSON response
+  volume_data <- json_response$trafficData$volume$byHour$edges
+  
+  # Create an empty data frame to store the results
+  result_df <- data.frame()
+  
+  # Iterate over each data point in volume_data
+  for (edge in volume_data) {
+    from <- edge$node$from
+    volume <- edge$node$total$volumeNumbers$volume
+    
+    # Create a data frame for the current data point
+    data_point <- data.frame(from, volume)
+    
+    # Append the data point to the result data frame
+    result_df <- rbind(result_df, data_point)
+  }
+  
+  # Convert 'from' column to POSIXct format with UTC timezone
+  result_df$from <- as.POSIXct(result_df$from, format = "%Y-%m-%dT%H:%M:%S", tz = "UTC")
+  
+  return(result_df)
+}
 

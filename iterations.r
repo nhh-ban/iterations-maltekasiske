@@ -62,9 +62,9 @@ stations_metadata_df %>%
   GQL(., .url = configs$vegvesen_url) %>%
   transform_volumes() %>% 
   ggplot(aes(x=from, y=volume)) + 
-  geom_line() + 
-  theme_classic()
-
-
-
-
+  geom_line() +
+  theme_classic() +
+  labs(
+    title = glue::glue("Traffic Volume for Station: {station_name}"),
+    caption = "Your caption here"
+  )
