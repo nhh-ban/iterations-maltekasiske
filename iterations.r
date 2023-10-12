@@ -64,7 +64,4 @@ stations_metadata_df %>%
   ggplot(aes(x=from, y=volume)) + 
   geom_line() +
   theme_classic() +
-  labs(
-    title = glue::glue("Traffic volume for station: {station_name}"),
-    caption = "Your caption here"
-  )
+  labs(title = glue::glue("Traffic volume for station: {station_name}"))
