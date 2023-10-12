@@ -65,6 +65,6 @@ stations_metadata_df %>%
   geom_line() +
   theme_classic() +
   labs(
-    title = glue::glue("Traffic Volume for Station: {station_name}"),
+    title = glue::glue("Traffic volume for station: {station_name}"),
     caption = "Your caption here"
   )
