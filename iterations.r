@@ -9,6 +9,7 @@ library(lubridate)
 library(anytime)
 library(readr)
 library(yaml)
+library(purrr)
 
 #### 1: Beginning of script
 
@@ -61,9 +62,6 @@ stations_metadata_df %>%
   GQL(., .url = configs$vegvesen_url) %>%
   transform_volumes() %>% 
   ggplot(aes(x=from, y=volume)) + 
-  geom_line() + 
-  theme_classic()
-
-
-
-
+  geom_line() +
+  theme_classic() +
+  labs(title = glue::glue("Traffic volume for station: {station_name}"))
